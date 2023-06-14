@@ -1,7 +1,8 @@
+import Navbar from "@/components/Navbar";
 import "./globals.css";
-import { Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 
-const font = Nunito({ subsets: ["latin"] })
+const font = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Airbnb",
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

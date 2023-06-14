@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
-import Modal from "./Modal";
+import Modal from "./modals/Modal";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)

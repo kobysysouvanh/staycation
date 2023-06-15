@@ -23,7 +23,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.APPLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
-      name: "credentials",
+      name: "Credentials",
       credentials: {
         email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },

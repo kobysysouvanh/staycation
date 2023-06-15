@@ -7,20 +7,26 @@ import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import RegisterModal from "./modals/RegisterModal";
+import LoginModal from "./modals/LoginModal";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
-  const [selectedValue, setSelectedValue] = useState(String)
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(String);
 
-  const handleOpen = () => {
-    setOpen(true)
-  }
+  const handleRegisterOpen = () => {
+    setIsRegisterOpen(true);
+  };
+
+  const handleLoginOpen = () => {
+    setIsLoginOpen(true);
+  };
 
   const handleClose = (value: string) => {
-    setOpen(false)
-    setSelectedValue(value)
-
-  }
+    setIsRegisterOpen(false);
+    setIsLoginOpen(false);
+    setSelectedValue(value);
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
@@ -86,12 +92,14 @@ const Navbar = () => {
                 <>
                   <div className="py-2 border-b-[1px]">
                     <div
-                      onClick={handleOpen}
+                      onClick={handleRegisterOpen}
                       className="px-4 py-3 transition hover:bg-neutral-100"
                     >
                       Sign Up
                     </div>
-                    <div className="px-4 py-3 transition hover:bg-neutral-100">
+                    <div 
+                    onClick={handleLoginOpen}
+                    className="px-4 py-3 transition hover:bg-neutral-100">
                       Login
                     </div>
                   </div>
@@ -109,7 +117,16 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <RegisterModal open = {open} onClose={handleClose} selectedValue={selectedValue}/>
+      <RegisterModal
+        open={isRegisterOpen}
+        onClose={handleClose}
+        selectedValue={selectedValue}
+      />
+      <LoginModal
+        open={isLoginOpen}
+        onClose={handleClose}
+        selectedValue={selectedValue}
+      />
     </div>
   );
 };

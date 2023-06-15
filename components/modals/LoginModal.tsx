@@ -1,20 +1,22 @@
-import { useCallback, useState } from "react";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { Theme, useTheme } from "@emotion/react";
 import { Dialog, TextField, ThemeProvider, createTheme } from "@mui/material";
-import { IoMdClose } from "react-icons/io";
 import axios from "axios";
-import { create } from "zustand";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { AiFillApple, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { IoMdClose } from "react-icons/io";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { toast } from "react-hot-toast";
+import { callbackify } from "util";
 
-type RegisterModalProps = {
+type LoginModalProps = {
   open: boolean;
   onClose: (value: string) => void;
   selectedValue: string;
-  disabled?: boolean;
 };
 
 const customTheme = (outerTheme: Theme) =>
@@ -39,7 +41,9 @@ const customTheme = (outerTheme: Theme) =>
     },
   });
 
-export default function RegisterModal(props: RegisterModalProps) {
+export default function LoginModal(props: LoginModalProps) {
+  const router = useRouter();
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const outerTheme = useTheme();
 
@@ -51,7 +55,6 @@ export default function RegisterModal(props: RegisterModalProps) {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -60,22 +63,30 @@ export default function RegisterModal(props: RegisterModalProps) {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        toast.success("Account created!");
-        registerModal.onClose();
-      })
-      .catch((err) => {
-        toast.error("Something went wrong.");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    signIn('credentials', {
+      ...data,
+      redirect: false
+    })
+    .then((callback) => {
+      setIsLoading(false)
+
+      if(callback?.ok){
+        toast.success("Logged in!")
+        router.refresh()
+      }
+
+      if(callback?.error){
+        toast.error(callback.error)
+      }
+    })
   };
 
   const handleClose = () => {
     props.onClose(props.selectedValue);
+  };
+
+  const handleItemClick = (value: string) => {
+    props.onClose(value);
   };
 
   return (
@@ -91,33 +102,21 @@ export default function RegisterModal(props: RegisterModalProps) {
           onClick={handleClose}
           size={18}
         />
-        <div className="flex items-center w-20 font-semibold">Register</div>
+        <div className="flex items-center w-20 font-semibold">Login</div>
       </div>
       <div className="relative p-6 flex-auto">
-        <p className="font-semibold text-2xl py-2">Welcome to Airbnb</p>
+        <p className="font-semibold text-2xl py-2">Welcome back</p>
         <div className="flex flex-col gap-4 mt-4">
           <ThemeProvider theme={customTheme(outerTheme)}>
             <TextField
-              {...register("name", {
-                required: "name is required",
-              })}
-              label="Name"
-              disabled={isLoading}
-              fullWidth
-            />
-            <TextField
-              {...register("email", {
-                required: "email is required",
-              })}
+              {...register("email")}
               label="Email"
               type="email"
               disabled={isLoading}
               fullWidth
             />
             <TextField
-              {...register("password", {
-                required: "password is required",
-              })}
+              {...register("password")}
               label="Password"
               type="password"
               disabled={isLoading}
@@ -132,7 +131,7 @@ export default function RegisterModal(props: RegisterModalProps) {
             onClick={handleSubmit(onSubmit)}
             className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
           >
-            Sign Up
+            Log in
           </button>
         </div>
         <div className="py-4 flex flex-row items-center text-center justify-center">

@@ -9,12 +9,13 @@ import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { sign } from "crypto";
 
 type RegisterModalProps = {
   open: boolean;
   onClose: (value: string) => void;
   selectedValue: string;
-  disabled?: boolean;
 };
 
 const customTheme = (outerTheme: Theme) =>
@@ -64,7 +65,7 @@ export default function RegisterModal(props: RegisterModalProps) {
       .post("/api/register", data)
       .then(() => {
         toast.success("Account created!");
-        registerModal.onClose();
+        handleClose();
       })
       .catch((err) => {
         toast.error("Something went wrong.");
@@ -131,6 +132,7 @@ export default function RegisterModal(props: RegisterModalProps) {
           <button
             onClick={handleSubmit(onSubmit)}
             className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+            disabled={isLoading}
           >
             Sign Up
           </button>
@@ -148,7 +150,10 @@ export default function RegisterModal(props: RegisterModalProps) {
         </div>
         <div className="flex flex-row relative items-center justify-center my-2 cursor-pointer hover:bg-neutral-100">
           <FcGoogle className="absolute left-6" size={24} />
-          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+          <div
+            onClick={() => signIn("google")}
+            className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm"
+          >
             Continue with Google
           </div>
         </div>

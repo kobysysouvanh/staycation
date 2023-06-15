@@ -43,8 +43,6 @@ const customTheme = (outerTheme: Theme) =>
 
 export default function LoginModal(props: LoginModalProps) {
   const router = useRouter();
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
   const outerTheme = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -63,22 +61,22 @@ export default function LoginModal(props: LoginModalProps) {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn('credentials', {
+    signIn("credentials", {
       ...data,
-      redirect: false
-    })
-    .then((callback) => {
-      setIsLoading(false)
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
 
-      if(callback?.ok){
-        toast.success("Logged in!")
-        router.refresh()
+      if (callback?.ok) {
+        toast.success("Logged in!");
+        router.refresh();
+        handleClose();
       }
 
-      if(callback?.error){
-        toast.error(callback.error)
+      if (callback?.error) {
+        toast.error(callback.error);
       }
-    })
+    });
   };
 
   const handleClose = () => {
@@ -130,6 +128,7 @@ export default function LoginModal(props: LoginModalProps) {
           <button
             onClick={handleSubmit(onSubmit)}
             className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+            disabled={isLoading}
           >
             Log in
           </button>
@@ -147,7 +146,10 @@ export default function LoginModal(props: LoginModalProps) {
         </div>
         <div className="flex flex-row relative items-center justify-center my-2 cursor-pointer hover:bg-neutral-100">
           <FcGoogle className="absolute left-6" size={24} />
-          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+          <div
+            onClick={() => signIn("google")}
+            className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm"
+          >
             Continue with Google
           </div>
         </div>

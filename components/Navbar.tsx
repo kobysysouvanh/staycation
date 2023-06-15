@@ -5,11 +5,16 @@ import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
-
 import RegisterModal from "./modals/RegisterModal";
 import LoginModal from "./modals/LoginModal";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: SafeUser | null;
+}
+
+const Navbar = (props: NavbarProps) => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(String);
@@ -77,7 +82,7 @@ const Navbar = () => {
               <AiOutlineMenu className="md:ml-1" />
               <div className="hidden md:block">
                 <Image
-                  src="/images/placeholder.jpg"
+                  src={props.currentUser?.image || "/images/placeholder.jpg"}
                   className="rounded-full"
                   width={30}
                   height={30}
@@ -89,29 +94,74 @@ const Navbar = () => {
           {isOpen && (
             <div className="absolute rounded-xl border-[1px] shadow-lg w-[40vw] md:w-60 bg-white overflow-hidden right-0 top-12 text-sm">
               <div className="flex flex-col cursor-pointer">
-                <>
-                  <div className="py-2 border-b-[1px]">
-                    <div
-                      onClick={handleRegisterOpen}
-                      className="px-4 py-3 transition hover:bg-neutral-100"
-                    >
-                      Sign Up
+                {props.currentUser ? (
+                  <>
+                    <div className="py-2">
+                      <div
+                        onClick={() => {}}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        My trips
+                      </div>
+                      <div
+                        onClick={() => {}}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        My favorites
+                      </div>
+                      <div
+                        onClick={() => {}}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        My reservations
+                      </div>
+                      <div
+                        onClick={() => {}}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        My properties
+                      </div>
+                      <div
+                        onClick={() => {}}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        Airbnb my home
+                      </div>
+                      <hr className="py-1"/>
+                      <div
+                        onClick={() => signOut()}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        Logout
+                      </div>
                     </div>
-                    <div 
-                    onClick={handleLoginOpen}
-                    className="px-4 py-3 transition hover:bg-neutral-100">
-                      Login
+                  </>
+                ) : (
+                  <>
+                    <div className="py-2 border-b-[1px]">
+                      <div
+                        onClick={handleRegisterOpen}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        Sign Up
+                      </div>
+                      <div
+                        onClick={handleLoginOpen}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                      >
+                        Login
+                      </div>
                     </div>
-                  </div>
-                  <div className="py-2">
-                    <div className="px-4 py-3 transition hover:bg-neutral-100">
-                      Airbnb your home
+                    <div className="py-2">
+                      <div className="px-4 py-3 transition hover:bg-neutral-100">
+                        Airbnb your home
+                      </div>
+                      <div className="px-4 py-3 transition hover:bg-neutral-100">
+                        Help
+                      </div>
                     </div>
-                    <div className="px-4 py-3 transition hover:bg-neutral-100">
-                      Help
-                    </div>
-                  </div>
-                </>
+                  </>
+                )}
               </div>
             </div>
           )}

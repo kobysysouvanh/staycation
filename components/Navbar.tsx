@@ -9,6 +9,8 @@ import RegisterModal from "./modals/RegisterModal";
 import LoginModal from "./modals/LoginModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
+import Categories from "./Categories";
+import { toast } from "react-hot-toast";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -38,9 +40,15 @@ const Navbar = (props: NavbarProps) => {
     setIsOpen((value) => !value);
   }, []);
 
+  const onRent = useCallback(() => {
+    if (!props.currentUser) {
+      setIsLoginOpen(true)
+    }
+  },[props.currentUser])
+
   return (
-    <div className="fixed w-full bg-white z-10 border-b-[1px] py-4">
-      <div className="flex flex-row items-center justify-between gap-3 md:gap-0 max-w-[2520px] mx-auto px-4 sm:px-2 md:px-10 xl:px-20">
+    <div className="fixed w-full bg-white z-10  py-4">
+      <div className="flex flex-row items-center justify-between gap-3 md:gap-0 max-w-[2520px] mx-auto px-4 sm:px-2 md:px-10 xl:px-20 border-b-[1px] py-4">
         <Link href="/">
           <Image
             src="/images/logo.png"
@@ -70,8 +78,8 @@ const Navbar = (props: NavbarProps) => {
         <div className="relative">
           <div className="flex flex-row items-center gap-1">
             <div
-              onClick={() => {}}
-              className="hidden md:block text-sm font-medium py-3 px-4 rounded-full hover:bg-neutral-100 transition"
+              onClick={onRent}
+              className="hidden md:block text-sm font-medium py-3 px-4 rounded-full hover:bg-neutral-100 cursor-pointer"
             >
               Airbnb your home
             </div>
@@ -92,7 +100,7 @@ const Navbar = (props: NavbarProps) => {
             </div>
           </div>
           {isOpen && (
-            <div className="absolute rounded-xl border-[1px] shadow-lg w-[40vw] md:w-60 bg-white overflow-hidden right-0 top-12 text-sm">
+            <div className="absolute rounded-xl border-[1px] shadow-lg w-[40vw] md:w-60 bg-white overflow-hidden right-0 top-12 text-sm z-4 ">
               <div className="flex flex-col cursor-pointer">
                 {props.currentUser ? (
                   <>
@@ -177,6 +185,7 @@ const Navbar = (props: NavbarProps) => {
         onClose={handleClose}
         selectedValue={selectedValue}
       />
+      <Categories />
     </div>
   );
 };

@@ -8,8 +8,9 @@ import { AiFillApple, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import { toast } from "react-hot-toast";
 
-type ModalProps = {
+type RegisterModalProps = {
   open: boolean;
   onClose: (value: string) => void;
   selectedValue: string;
@@ -38,7 +39,7 @@ const customTheme = (outerTheme: Theme) =>
     },
   });
 
-export default function Modal(props: ModalProps) {
+export default function RegisterModal(props: RegisterModalProps) {
   const registerModal = useRegisterModal();
   const outerTheme = useTheme();
 
@@ -59,13 +60,12 @@ export default function Modal(props: ModalProps) {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
+    axios.post("/api/register", data)
       .then(() => {
         registerModal.onClose();
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Something went wrong.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -113,6 +113,29 @@ export default function Modal(props: ModalProps) {
           >
             Sign Up
           </button>
+        </div>
+        <div className="py-4 flex flex-row items-center text-center justify-center">
+          <hr className="w-full"/>
+          <p className="px-2 text-xs">or</p>
+          <hr className="w-full"/>
+        </div>
+        <div className="flex flex-row relative items-center justify-center cursor-pointer hover:bg-neutral-100">
+          <AiFillFacebook className="absolute left-6" color="blue" size={24}/>
+          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+            Continue with Facebook
+          </div>
+        </div>
+        <div className="flex flex-row relative items-center justify-center my-2 cursor-pointer hover:bg-neutral-100">
+          <FcGoogle className="absolute left-6" size={24}/>
+          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+            Continue with Google
+          </div>
+        </div>
+        <div className="flex flex-row relative items-center justify-center cursor-pointer hover:bg-neutral-100">
+          <AiFillApple className="absolute left-6" size={24}/>
+          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+            Continue with Apple
+          </div>
         </div>
       </div>
     </Dialog>

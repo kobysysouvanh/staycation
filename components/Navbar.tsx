@@ -5,7 +5,8 @@ import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
-import Modal from "./modals/Modal";
+
+import RegisterModal from "./modals/RegisterModal";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -108,7 +109,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <Modal open = {open} onClose={handleClose} selectedValue={selectedValue}/>
+      <RegisterModal open = {open} onClose={handleClose} selectedValue={selectedValue}/>
     </div>
   );
 };

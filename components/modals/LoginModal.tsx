@@ -1,20 +1,16 @@
-import useLoginModal from "@/app/hooks/useLoginModal";
 import { Theme, useTheme } from "@emotion/react";
 import { Dialog, TextField, ThemeProvider, createTheme } from "@mui/material";
-import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { AiFillApple, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdClose } from "react-icons/io";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { callbackify } from "util";
 
 type LoginModalProps = {
-  open: boolean;
+  isOpen: boolean;
   onClose: (value: string) => void;
   selectedValue: string;
 };
@@ -83,13 +79,9 @@ export default function LoginModal(props: LoginModalProps) {
     props.onClose(props.selectedValue);
   };
 
-  const handleItemClick = (value: string) => {
-    props.onClose(value);
-  };
-
   return (
     <Dialog
-      open={props.open}
+      open={props.isOpen}
       onClose={handleClose}
       fullWidth={true}
       maxWidth="sm"

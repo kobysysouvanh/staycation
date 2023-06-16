@@ -103,7 +103,7 @@ export default function Categories() {
 
   return (
     <div className=" w-full bg-white z-0 py-4">
-      <div className="flex flex-row items-center justify-between pt-2 px-9 overflow-x-auto">
+      <div className="flex flex-row items-center justify-between pt-2 px-10 overflow-x-auto">
         {categories.map((item) => (
           <CategoryItem
             key={item.label}

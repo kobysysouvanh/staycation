@@ -1,19 +1,16 @@
-import { useCallback, useState } from "react";
 import { Theme, useTheme } from "@emotion/react";
 import { Dialog, TextField, ThemeProvider, createTheme } from "@mui/material";
-import { IoMdClose } from "react-icons/io";
 import axios from "axios";
-import { create } from "zustand";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { AiFillApple, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { toast } from "react-hot-toast";
-import { signIn } from "next-auth/react";
-import { sign } from "crypto";
+import { IoMdClose } from "react-icons/io";
 
 type RegisterModalProps = {
-  open: boolean;
+  isOpen: boolean;
   onClose: (value: string) => void;
   selectedValue: string;
 };
@@ -41,7 +38,6 @@ const customTheme = (outerTheme: Theme) =>
   });
 
 export default function RegisterModal(props: RegisterModalProps) {
-  const registerModal = useRegisterModal();
   const outerTheme = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +77,7 @@ export default function RegisterModal(props: RegisterModalProps) {
 
   return (
     <Dialog
-      open={props.open}
+      open={props.isOpen}
       onClose={handleClose}
       fullWidth={true}
       maxWidth="sm"

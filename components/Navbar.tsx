@@ -9,8 +9,9 @@ import RegisterModal from "./modals/RegisterModal";
 import LoginModal from "./modals/LoginModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
-import Categories from "./Categories";
+import Categories from "./Category/Categories";
 import { toast } from "react-hot-toast";
+import RentModal from "./modals/RentModal";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -19,7 +20,13 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRentOpen, setIsRentOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(String);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleRentOpen = () => {
+    setIsRentOpen(true);
+  };
 
   const handleRegisterOpen = () => {
     setIsRegisterOpen(true);
@@ -32,19 +39,21 @@ const Navbar = (props: NavbarProps) => {
   const handleClose = (value: string) => {
     setIsRegisterOpen(false);
     setIsLoginOpen(false);
+    setIsRentOpen(false);
     setSelectedValue(value);
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = useCallback(() => {
-    setIsOpen((value) => !value);
+  const handleMenuOpen = useCallback(() => {
+    setIsMenuOpen((value) => !value);
   }, []);
 
   const onRent = useCallback(() => {
     if (!props.currentUser) {
-      setIsLoginOpen(true)
+      setIsLoginOpen(true);
     }
-  },[props.currentUser])
+
+    handleRentOpen();
+  }, [props.currentUser]);
 
   return (
     <div className="fixed w-full bg-white z-10  py-4">
@@ -84,7 +93,7 @@ const Navbar = (props: NavbarProps) => {
               Airbnb your home
             </div>
             <div
-              onClick={toggleOpen}
+              onClick={handleMenuOpen}
               className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition "
             >
               <AiOutlineMenu className="md:ml-1" />
@@ -99,7 +108,7 @@ const Navbar = (props: NavbarProps) => {
               </div>
             </div>
           </div>
-          {isOpen && (
+          {isMenuOpen && (
             <div className="absolute rounded-xl border-[1px] shadow-lg w-[40vw] md:w-60 bg-white overflow-hidden right-0 top-12 text-sm z-4 ">
               <div className="flex flex-col cursor-pointer">
                 {props.currentUser ? (
@@ -135,7 +144,7 @@ const Navbar = (props: NavbarProps) => {
                       >
                         Airbnb my home
                       </div>
-                      <hr className="py-1"/>
+                      <hr className="py-1" />
                       <div
                         onClick={() => signOut()}
                         className="px-4 py-3 transition hover:bg-neutral-100"
@@ -176,12 +185,17 @@ const Navbar = (props: NavbarProps) => {
         </div>
       </div>
       <RegisterModal
-        open={isRegisterOpen}
+        isOpen={isRegisterOpen}
         onClose={handleClose}
         selectedValue={selectedValue}
       />
       <LoginModal
-        open={isLoginOpen}
+        isOpen={isLoginOpen}
+        onClose={handleClose}
+        selectedValue={selectedValue}
+      />
+      <RentModal
+        isOpen={isRentOpen}
         onClose={handleClose}
         selectedValue={selectedValue}
       />

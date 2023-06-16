@@ -7,6 +7,8 @@ import { IoMdClose } from "react-icons/io";
 import { categories } from "../Category/Categories";
 import CategoryInput from "../Category/CategoryInput";
 import { FieldValue, FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../CountrySelect";
+import dynamic from "next/dynamic";
 
 type RentModalProps = {
   isOpen: boolean;
@@ -31,34 +33,36 @@ export default function RentModal(props: RentModalProps) {
     handleSubmit,
     setValue,
     watch,
-    formState: {
-        errors
-    },
-    reset
+    formState: { errors },
+    reset,
   } = useForm<FieldValues>({
     defaultValues: {
-        title: "",
-        description: "",
-        imageSrc: "",
-        category: "",
-        roomCount: 1,
-        bathroomCount: 1,
-        guestCount: 1,
-        locationValue: null,
-        price: 1
+      title: "",
+      description: "",
+      imageSrc: "",
+      category: "",
+      roomCount: 1,
+      bathroomCount: 1,
+      guestCount: 1,
+      locationValue: null,
+      price: 1,
+    },
+  });
 
-    }
-  })
-
-  const category = watch("category")
+  const category = watch("category");
+  const location = watch("location");
+  
+  const Map = useMemo(() => dynamic(() => import('../Map'), {
+    ssr:false
+  }), [location])
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
-        shouldDirty: true,
-        shouldTouch: true,
-        shouldValidate: true
-    })
-  }
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+  };
 
   const onBack = () => {
     setStep((value) => value - 1);
@@ -68,7 +72,7 @@ export default function RentModal(props: RentModalProps) {
     setStep((value) => value + 1);
   };
 
-  const actionLabel = useMemo(() => {
+  const buttonLabel = useMemo(() => {
     if (step === STEPS.PRICE) {
       return "Create";
     }
@@ -88,23 +92,8 @@ export default function RentModal(props: RentModalProps) {
     props.onClose(props.selectedValue);
   };
 
-  return (
-    <Dialog
-      open={props.isOpen}
-      onClose={handleClose}
-      fullWidth={true}
-      maxWidth="sm"
-    >
-      <div className="flex flex-row relative items-center justify-center p-6 border-b-[1px]">
-        <IoMdClose
-          className="absolute cursor-pointer left-9"
-          onClick={handleClose}
-          size={18}
-        />
-        <div className="flex flex-row items-center font-semibold">
-          Airbnb your home!
-        </div>
-      </div>
+  let bodyContent = (
+    <div>
       <div className="relative p-6 flex-auto">
         <p className="font-semibold text-2xl py-2">
           Which of these best describes your place?
@@ -123,10 +112,60 @@ export default function RentModal(props: RentModalProps) {
           </div>
         ))}
       </div>
+    </div>
+  );
+
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col">
+        <div className="ml-6 mt-6 flex-auto">
+          <p className="font-semibold text-2xl">
+            Where is this place located?
+          </p>
+        </div>
+        <div className="flex items-center justify-center">
+          <CountrySelect value={location} onChange={(value) => setCustomValue('location', value)}/>
+        </div>
+        <div className="p-6">
+          <Map center={location?.latlng}/>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Dialog
+      open={props.isOpen}
+      onClose={handleClose}
+      fullWidth={true}
+      maxWidth="sm"
+    >
+      <div className="flex flex-row relative items-center justify-center p-6 border-b-[1px]">
+        <IoMdClose
+          className="absolute cursor-pointer left-9"
+          onClick={handleClose}
+          size={18}
+        />
+        <div className="flex flex-row items-center font-semibold">
+          Airbnb your home!
+        </div>
+      </div>
+      {bodyContent}
       <div className="flex flex-col gap-2 p-6">
         <div className="flex flex-row items-center gap-4 w-full">
-          <button className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4">
-            {actionLabel}
+          {step !== STEPS.CATEGORY && (
+            <button
+              onClick={onBack}
+              className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+            >
+              Back
+            </button>
+          )}
+          <button
+            onClick={onNext}
+            className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+          >
+            {buttonLabel}
           </button>
         </div>
       </div>

@@ -101,6 +101,7 @@ export default function RegisterModal(props: RegisterModalProps) {
               label="Name"
               disabled={isLoading}
               fullWidth
+              
             />
             <TextField
               {...register("email", {
@@ -110,6 +111,7 @@ export default function RegisterModal(props: RegisterModalProps) {
               type="email"
               disabled={isLoading}
               fullWidth
+              
             />
             <TextField
               {...register("password", {
@@ -119,6 +121,7 @@ export default function RegisterModal(props: RegisterModalProps) {
               type="password"
               disabled={isLoading}
               fullWidth
+             
             />
           </ThemeProvider>
         </div>

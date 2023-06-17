@@ -111,6 +111,7 @@ export default function LoginModal(props: LoginModalProps) {
               type="password"
               disabled={isLoading}
               fullWidth
+             
             />
           </ThemeProvider>
         </div>

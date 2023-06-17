@@ -1,12 +1,23 @@
-import { Dialog, InputAdornment, TextField, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Dialog,
+  InputAdornment,
+  TextField,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import { signIn } from "next-auth/react";
 import { useMemo, useState } from "react";
 import { AiFillApple, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdClose } from "react-icons/io";
-import { categories } from "../Category/Categories";
-import CategoryInput from "../Category/CategoryInput";
-import { FieldValue, FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { categories } from "../category/Categories";
+import CategoryInput from "../category/CategoryInput";
+import {
+  FieldValue,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import CountrySelect from "../CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../Counter";
@@ -57,7 +68,7 @@ export default function RentModal(props: RentModalProps) {
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
   const outerTheme = useTheme();
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     register,
@@ -113,26 +124,27 @@ export default function RentModal(props: RentModalProps) {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.PRICE) {
-      return onNext()
+      return onNext();
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    axios.post('/api/listings', data)
-    .then(() => {
-      toast.success('Listing Created!')
-      router.refresh()
-      reset()
-      setStep(STEPS.CATEGORY)
-      handleClose()
-    })
-    .catch(() => {
-      toast.error("Something went wrong!")
-    })
-    .finally(() => {
-      setIsLoading(false)
-    })
-  }
+    axios
+      .post("/api/listings", data)
+      .then(() => {
+        toast.success("Listing Created!");
+        router.refresh();
+        reset();
+        setStep(STEPS.CATEGORY);
+        handleClose();
+      })
+      .catch(() => {
+        toast.error("Something went wrong!");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const buttonLabel = useMemo(() => {
     if (step === STEPS.PRICE) {

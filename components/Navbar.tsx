@@ -9,7 +9,7 @@ import RegisterModal from "./modals/RegisterModal";
 import LoginModal from "./modals/LoginModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
-import Categories from "./Category/Categories";
+import Categories from "./category/Categories";
 import { toast } from "react-hot-toast";
 import RentModal from "./modals/RentModal";
 
@@ -49,7 +49,7 @@ const Navbar = (props: NavbarProps) => {
 
   const onRent = useCallback(() => {
     if (!props.currentUser) {
-      setIsLoginOpen(true);
+      return handleLoginOpen();
     }
 
     handleRentOpen();

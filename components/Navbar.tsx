@@ -56,7 +56,7 @@ const Navbar = (props: NavbarProps) => {
   }, [props.currentUser]);
 
   return (
-    <div className="fixed w-full bg-white z-10  py-4">
+    <div className="fixed w-full bg-white z-10">
       <div className="flex flex-row items-center justify-between gap-3 md:gap-0 max-w-[2520px] mx-auto px-4 sm:px-2 md:px-10 xl:px-20 border-b-[1px] py-4">
         <Link href="/">
           <Image

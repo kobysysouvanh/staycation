@@ -12,12 +12,14 @@ import { SafeUser } from "@/app/types";
 import Categories from "./category/Categories";
 import { toast } from "react-hot-toast";
 import RentModal from "./modals/RentModal";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
 }
 
-const Navbar = (props: NavbarProps) => {
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
+  const router = useRouter()
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRentOpen, setIsRentOpen] = useState(false);
@@ -48,12 +50,12 @@ const Navbar = (props: NavbarProps) => {
   }, []);
 
   const onRent = useCallback(() => {
-    if (!props.currentUser) {
+    if (!currentUser) {
       return handleLoginOpen();
     }
 
     handleRentOpen();
-  }, [props.currentUser]);
+  }, [currentUser]);
 
   return (
     <div className="fixed w-full bg-white z-10">
@@ -99,7 +101,7 @@ const Navbar = (props: NavbarProps) => {
               <AiOutlineMenu className="md:ml-1" />
               <div className="hidden md:block">
                 <Image
-                  src={props.currentUser?.image || "/images/placeholder.jpg"}
+                  src={currentUser?.image || "/images/placeholder.jpg"}
                   className="rounded-full"
                   width={30}
                   height={30}
@@ -111,11 +113,11 @@ const Navbar = (props: NavbarProps) => {
           {isMenuOpen && (
             <div className="absolute rounded-xl border-[1px] shadow-lg w-[40vw] md:w-60 bg-white overflow-hidden right-0 top-12 text-sm z-4 ">
               <div className="flex flex-col cursor-pointer">
-                {props.currentUser ? (
+                {currentUser ? (
                   <>
                     <div className="py-2">
                       <div
-                        onClick={() => {}}
+                        onClick={() => router.push("/trips")}
                         className="px-4 py-3 transition hover:bg-neutral-100"
                       >
                         My trips

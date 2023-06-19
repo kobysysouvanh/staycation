@@ -1,17 +1,16 @@
 "use client";
 
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, SafeListing } from "@/app/types";
-import { Reservation } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { SafeListing, SafeReservations, SafeUser } from "@/app/types";
 import { format } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
 import HeartButton from "./HeartButton";
 
 interface ListingCardProps {
   data: SafeListing;
-  reservation?: Reservation;
+  reservation?: SafeReservations;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -19,78 +18,91 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
 }
 
-export default function ListingCard(props: ListingCardProps) {
+const ListingCard: React.FC<ListingCardProps> = ({
+  data,
+  reservation,
+  onAction,
+  disabled,
+  actionLabel,
+  actionId = "",
+  currentUser,
+}) => {
   const router = useRouter();
   const { getByValue } = useCountries();
 
-  const location = getByValue(props.data.locationValue);
+  const location = getByValue(data.locationValue);
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
 
-      if (props.disabled) {
+      if (disabled) {
         return;
       }
-      props.actionId = "";
-      props.onAction?.(props.actionId);
+      actionId = "";
+      onAction?.(actionId);
     },
-    [props.onAction, props.actionId]
+    [onAction, actionId]
   );
 
   const price = useMemo(() => {
-    if (props.reservation) {
-      return props.reservation.totalPrice;
+    if (reservation) {
+      return reservation.totalPrice;
     }
 
-    return props.data.price;
-  }, [props.data.price, props.reservation]);
+    return data.price;
+  }, [data.price, reservation]);
 
   const reservationDate = useMemo(() => {
-    if (!props.reservation) {
+    if (!reservation) {
       return null;
     }
 
-    const start = new Date(props.reservation.startDate);
-    const end = new Date(props.reservation.endDate);
+    const start = new Date(reservation.startDate);
+    const end = new Date(reservation.endDate);
 
     return `${format(start, "PP")} - ${format(end, "PP")}`;
-  }, [props.reservation]);
+  }, [reservation]);
 
   return (
     <div
-      onClick={() => router.push(`/listings/${props.data.id}`)}
+      onClick={() => router.push(`/listings/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
             alt="Listing"
-            src={props.data.imageSrc}
+            src={data.imageSrc}
             className="object-cover h-full w-full group-hover:scale-110 transition"
             fill
           />
           <div className="absolute top-3 right-3">
-            <HeartButton
-              listingId={props.data.id}
-              currentUser={props.currentUser}
-            />
+            <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
         <div className="font-semibold text-md">
           {location?.region}, {location?.label}
         </div>
         <div className="font-light text-neutral-500">
-          {reservationDate || props.data.category}
+          {reservationDate || data.category}
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">${price}</div>
-          {!props.reservation && <div className="font-light">night</div>}
+          {!reservation && <div className="font-light">night</div>}
         </div>
-        {props.onAction && props.actionLabel && (
-          <button disabled={props.disabled} onClick={handleCancel}></button>
+        {onAction && actionLabel && (
+          <button 
+          className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:opacity-80 text-white py-2"
+          disabled={disabled} 
+          onClick={handleCancel}
+          >
+            {actionLabel}
+            </button>
         )}
       </div>
     </div>
   );
-}
+};
+
+export default ListingCard;

@@ -19,7 +19,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRentOpen, setIsRentOpen] = useState(false);
@@ -129,10 +129,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                         My favorites
                       </div>
                       <div
-                        onClick={() => {}}
+                        onClick={() => router.push("/reservations")}
                         className="px-4 py-3 transition hover:bg-neutral-100"
                       >
-                        My reservations
+                        My property reservations
                       </div>
                       <div
                         onClick={() => {}}

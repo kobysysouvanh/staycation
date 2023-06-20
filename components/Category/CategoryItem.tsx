@@ -11,7 +11,7 @@ interface CategoryItemProps {
   selected?: boolean;
 }
 
-export default function CategoryItem(props: CategoryItemProps) {
+const CategoryItem: React.FC<CategoryItemProps> = ({ icon: Icon, label, selected }) => {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -24,7 +24,7 @@ export default function CategoryItem(props: CategoryItemProps) {
 
     const updatedQuery: any = {
       ...currentQuery,
-      category: props.label,
+      category: label,
     };
 
     const url = qs.stringifyUrl(
@@ -36,18 +36,20 @@ export default function CategoryItem(props: CategoryItemProps) {
     );
 
     router.push(url);
-  }, [props.label, params, router]);
+  }, [label, params, router]);
 
   return (
     <div
       onClick={handleClick}
       className={`flex flex-col items-center justify-center gap-2 p-2 border-b-2 transition cursor-pointer hover:text-black hover:border-b-neutral-800
-    ${props.selected ? "border-b-black" : "border-transparent"}
-    ${props.selected ? "text-black" : "text-neutral-500"}
+    ${selected ? "border-b-black" : "border-transparent"}
+    ${selected ? "text-black" : "text-neutral-500"}
     `}
     >
-      <props.icon size={26} />
-      <div className="font-medium text-xs">{props.label}</div>
+      <Icon size={26} />
+      <div className="font-medium text-xs">{label}</div>
     </div>
   );
 }
+
+export default CategoryItem

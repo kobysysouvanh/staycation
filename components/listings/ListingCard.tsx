@@ -39,10 +39,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
       if (disabled) {
         return;
       }
-      actionId = "";
+
       onAction?.(actionId);
     },
-    [onAction, actionId]
+    [onAction, actionId, disabled]
   );
 
   const price = useMemo(() => {
@@ -92,13 +92,13 @@ const ListingCard: React.FC<ListingCardProps> = ({
           {!reservation && <div className="font-light">night</div>}
         </div>
         {onAction && actionLabel && (
-          <button 
-          className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:opacity-80 text-white py-2"
-          disabled={disabled} 
-          onClick={handleCancel}
+          <button
+            className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:opacity-80 text-white py-2"
+            disabled={disabled}
+            onClick={handleCancel}
           >
             {actionLabel}
-            </button>
+          </button>
         )}
       </div>
     </div>

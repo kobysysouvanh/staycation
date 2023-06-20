@@ -37,7 +37,11 @@ const customTheme = (outerTheme: Theme) =>
     },
   });
 
-export default function RegisterModal(props: RegisterModalProps) {
+const RegisterModal: React.FC<RegisterModalProps> = ({
+  isOpen,
+  onClose,
+  selectedValue,
+}) => {
   const outerTheme = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -72,16 +76,11 @@ export default function RegisterModal(props: RegisterModalProps) {
   };
 
   const handleClose = () => {
-    props.onClose(props.selectedValue);
+    onClose(selectedValue);
   };
 
   return (
-    <Dialog
-      open={props.isOpen}
-      onClose={handleClose}
-      fullWidth={true}
-      maxWidth="sm"
-    >
+    <Dialog open={isOpen} onClose={handleClose} fullWidth={true} maxWidth="sm">
       <div className="flex flex-row relative items-center justify-center p-6 border-b-[1px]">
         <IoMdClose
           className="absolute cursor-pointer left-9"
@@ -101,7 +100,6 @@ export default function RegisterModal(props: RegisterModalProps) {
               label="Name"
               disabled={isLoading}
               fullWidth
-              
             />
             <TextField
               {...register("email", {
@@ -111,7 +109,6 @@ export default function RegisterModal(props: RegisterModalProps) {
               type="email"
               disabled={isLoading}
               fullWidth
-              
             />
             <TextField
               {...register("password", {
@@ -121,7 +118,6 @@ export default function RegisterModal(props: RegisterModalProps) {
               type="password"
               disabled={isLoading}
               fullWidth
-             
             />
           </ThemeProvider>
         </div>
@@ -165,4 +161,6 @@ export default function RegisterModal(props: RegisterModalProps) {
       </div>
     </Dialog>
   );
-}
+};
+
+export default RegisterModal;

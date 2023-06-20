@@ -37,7 +37,11 @@ const customTheme = (outerTheme: Theme) =>
     },
   });
 
-export default function LoginModal(props: LoginModalProps) {
+const LoginModal: React.FC<LoginModalProps> = ({
+  isOpen,
+  onClose,
+  selectedValue,
+}) => {
   const router = useRouter();
   const outerTheme = useTheme();
 
@@ -76,16 +80,11 @@ export default function LoginModal(props: LoginModalProps) {
   };
 
   const handleClose = () => {
-    props.onClose(props.selectedValue);
+    onClose(selectedValue);
   };
 
   return (
-    <Dialog
-      open={props.isOpen}
-      onClose={handleClose}
-      fullWidth={true}
-      maxWidth="sm"
-    >
+    <Dialog open={isOpen} onClose={handleClose} fullWidth={true} maxWidth="sm">
       <div className="flex flex-row relative items-center justify-center p-6 border-b-[1px]">
         <IoMdClose
           className="absolute cursor-pointer left-9"
@@ -111,7 +110,6 @@ export default function LoginModal(props: LoginModalProps) {
               type="password"
               disabled={isLoading}
               fullWidth
-             
             />
           </ThemeProvider>
         </div>
@@ -155,4 +153,6 @@ export default function LoginModal(props: LoginModalProps) {
       </div>
     </Dialog>
   );
-}
+};
+
+export default LoginModal;

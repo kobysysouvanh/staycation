@@ -14,12 +14,12 @@ interface ImageUploadProps {
   value: string;
 }
 
-export default function ImageUpload(props: ImageUploadProps) {
+const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
   const handleUpload = useCallback(
     (result: any) => {
-      props.onChange(result.info.secure_url);
+      onChange(result.info.secure_url);
     },
-    [props.onChange]
+    [onChange]
   );
 
   return (
@@ -37,22 +37,22 @@ export default function ImageUpload(props: ImageUploadProps) {
             className="relative cursor-pointer hover:opacity-70 border-dashed border-2 p-20 border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600"
           >
             <TbPhotoPlus size={50} />
-            <div className="font-semibold text-lg">
-                Click to upload
-            </div>
-            {props.value && (
-                <div className="absolute inset-0 w-full h-full">
-                    <Image
-                        alt="Upload"
-                        fill
-                        style={{ objectFit: "cover" }}
-                        src={props.value}
-                    />
-                </div>
+            <div className="font-semibold text-lg">Click to upload</div>
+            {value && (
+              <div className="absolute inset-0 w-full h-full">
+                <Image
+                  alt="Upload"
+                  fill
+                  style={{ objectFit: "cover" }}
+                  src={value}
+                />
+              </div>
             )}
           </div>
         );
       }}
     </CldUploadWidget>
   );
-}
+};
+
+export default ImageUpload;

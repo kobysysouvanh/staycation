@@ -1,31 +1,17 @@
-import {
-  Dialog,
-  InputAdornment,
-  TextField,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import { signIn } from "next-auth/react";
+import { Theme, useTheme } from "@emotion/react";
+import { Dialog, TextField, ThemeProvider, createTheme } from "@mui/material";
+import axios from "axios";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { AiFillApple, AiFillFacebook } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
+import Counter from "../Counter";
+import CountrySelect from "../CountrySelect";
+import ImageUpload from "../ImageUpload";
 import { categories } from "../category/Categories";
 import CategoryInput from "../category/CategoryInput";
-import {
-  FieldValue,
-  FieldValues,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
-import CountrySelect from "../CountrySelect";
-import dynamic from "next/dynamic";
-import Counter from "../Counter";
-import { ClassNames, Theme, useTheme } from "@emotion/react";
-import ImageUpload from "../ImageUpload";
-import axios from "axios";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 type RentModalProps = {
   isOpen: boolean;
@@ -64,7 +50,11 @@ const customTheme = (outerTheme: Theme) =>
     },
   });
 
-export default function RentModal(props: RentModalProps) {
+const RentModal: React.FC<RentModalProps> = ({
+  isOpen,
+  onClose,
+  selectedValue,
+}) => {
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
   const outerTheme = useTheme();
@@ -163,7 +153,7 @@ export default function RentModal(props: RentModalProps) {
   }, [step]);
 
   const handleClose = () => {
-    props.onClose(props.selectedValue);
+    onClose(selectedValue);
   };
 
   let bodyContent = (
@@ -321,12 +311,7 @@ export default function RentModal(props: RentModalProps) {
   }
 
   return (
-    <Dialog
-      open={props.isOpen}
-      onClose={handleClose}
-      fullWidth={true}
-      maxWidth="sm"
-    >
+    <Dialog open={isOpen} onClose={handleClose} fullWidth={true} maxWidth="sm">
       <div className="flex flex-row relative items-center justify-center p-6 border-b-[1px]">
         <IoMdClose
           className="absolute cursor-pointer left-9"
@@ -358,4 +343,6 @@ export default function RentModal(props: RentModalProps) {
       </div>
     </Dialog>
   );
-}
+};
+
+export default RentModal;

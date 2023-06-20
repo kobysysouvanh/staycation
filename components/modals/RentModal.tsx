@@ -10,8 +10,8 @@ import { IoMdClose } from "react-icons/io";
 import Counter from "../Counter";
 import CountrySelect from "../CountrySelect";
 import ImageUpload from "../ImageUpload";
-import { categories } from "../category/Categories";
-import CategoryInput from "../category/CategoryInput";
+import { categories } from "@/components/category/Categories";
+import CategoryInput from "@/components/category/CategoryInput";
 
 interface RentModalProps {
   isOpen: boolean;

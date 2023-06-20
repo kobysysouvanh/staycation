@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { toast } from "react-hot-toast";
-import { categories } from "../category/Categories";
+import { categories } from "@/components/category/Categories";
 import ListingHead from "./ListingHead";
 import ListingInfo from "./ListingInfo";
 import ListingReservation from "./ListingReservation";
@@ -31,9 +31,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
   reservations = [],
   currentUser,
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [totalPrice, setTotalPrice] = useState(listing.price)
-  const [dateRange, setDateRange] = useState<Range>(initialDateRange)
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(listing.price);
+  const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const router = useRouter();
 
   const disabledDates = useMemo(() => {
@@ -51,50 +51,47 @@ const ListingClient: React.FC<ListingClientProps> = ({
     return dates;
   }, [reservations]);
 
-  
-
   const onCreateReservation = useCallback(() => {
-    if (!currentUser){
-      return toast.error("Please login in before reserving!")
+    if (!currentUser) {
+      return toast.error("Please login in before reserving!");
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    axios.post("/api/reservations", {
-      totalPrice,
-      startDate: dateRange.startDate,
-      endDate: dateRange.endDate,
-      listingId: listing?.id
-    })
-    .then(() => {
-      toast.success("Listing reserved!")
-      setDateRange(initialDateRange)
-      router.push("/trips")
-    })
-    .catch(() => {
-      toast.error("Something went wrong")
-    })
-    .finally(() => {
-      setIsLoading(false)
-    })
-
-  }, [totalPrice, dateRange, listing?.id, router, currentUser])
+    axios
+      .post("/api/reservations", {
+        totalPrice,
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate,
+        listingId: listing?.id,
+      })
+      .then(() => {
+        toast.success("Listing reserved!");
+        setDateRange(initialDateRange);
+        router.push("/trips");
+      })
+      .catch(() => {
+        toast.error("Something went wrong");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [totalPrice, dateRange, listing?.id, router, currentUser]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInCalendarDays(
         dateRange.endDate,
         dateRange.startDate
-      )
+      );
 
       if (dayCount && listing.price) {
-        setTotalPrice(dayCount * listing.price)
-      }
-      else {
-        setTotalPrice(listing.price)
+        setTotalPrice(dayCount * listing.price);
+      } else {
+        setTotalPrice(listing.price);
       }
     }
-  }, [dateRange, listing.price])
+  }, [dateRange, listing.price]);
 
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);

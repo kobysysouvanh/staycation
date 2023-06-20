@@ -10,7 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useMemo, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
-import Categories from "./category/Categories";
+import Categories from "@/components/category/Categories";
 import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import RentModal from "./modals/RentModal";
@@ -27,53 +27,52 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRentOpen, setIsRentOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(String);
 
-  const params = useSearchParams()
-  const { getByValue } = useCountries()
+  const params = useSearchParams();
+  const { getByValue } = useCountries();
 
-  const locationValue = params?.get("locationValue")
-  const startDate = params?.get("startDate")
-  const endDate = params?.get("endDate")
-  const guestCount = params?.get("guestCount")
+  const locationValue = params?.get("locationValue");
+  const startDate = params?.get("startDate");
+  const endDate = params?.get("endDate");
+  const guestCount = params?.get("guestCount");
 
   const locationLabel = useMemo(() => {
     if (locationValue) {
-      return getByValue(locationValue as string)?.label
+      return getByValue(locationValue as string)?.label;
     }
 
-    return "Anywhere"
-  }, [locationValue, getByValue])
+    return "Anywhere";
+  }, [locationValue, getByValue]);
 
   const durationLabel = useMemo(() => {
-    if(startDate && endDate) {
-      const start = new Date(startDate as string)
-      const end = new Date(endDate as string)
-      let diff = differenceInDays(end, start)
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      let diff = differenceInDays(end, start);
 
-      if (diff === 0){
-        diff = 1
+      if (diff === 0) {
+        diff = 1;
       }
 
-      return `${diff} Days`
+      return `${diff} Days`;
     }
 
-    return "Any Week"
-
-  }, [startDate, endDate])
+    return "Any Week";
+  }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {
     if (guestCount) {
-      return `${guestCount} Guests`
+      return `${guestCount} Guests`;
     }
 
-    return "Add Guests"
-  }, [guestCount])
+    return "Add Guests";
+  }, [guestCount]);
 
   const handleSearchOpen = () => {
-    setIsSearchOpen(true)
-  }
+    setIsSearchOpen(true);
+  };
 
   const handleRentOpen = () => {
     setIsRentOpen(true);
@@ -91,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
     setIsRegisterOpen(false);
     setIsLoginOpen(false);
     setIsRentOpen(false);
-    setIsSearchOpen(false)
+    setIsSearchOpen(false);
     setSelectedValue(value);
   };
 
@@ -121,9 +120,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
         </Link>
 
         {/* Search Bar */}
-        <div 
-        onClick={handleSearchOpen}
-        className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">
+        <div
+          onClick={handleSearchOpen}
+          className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
+        >
           <div className="flex flex-row items-center justify-between">
             <div className="text-sm font-semibold px-4">{locationLabel}</div>
             <div className="hidden sm:block text-sm font-semibold px-4 border-x-[1px] flex-1 text-center">

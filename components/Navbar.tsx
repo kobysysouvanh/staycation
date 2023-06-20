@@ -123,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                         My trips
                       </div>
                       <div
-                        onClick={() => {}}
+                        onClick={() => router.push("/favorites")}
                         className="px-4 py-3 transition hover:bg-neutral-100"
                       >
                         My favorites
@@ -135,16 +135,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                         My property reservations
                       </div>
                       <div
-                        onClick={() => {}}
+                        onClick={() => router.push("/properties")}
                         className="px-4 py-3 transition hover:bg-neutral-100"
                       >
                         My properties
-                      </div>
-                      <div
-                        onClick={() => {}}
-                        className="px-4 py-3 transition hover:bg-neutral-100"
-                      >
-                        Airbnb my home
                       </div>
                       <hr className="py-1" />
                       <div

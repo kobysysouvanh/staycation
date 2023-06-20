@@ -90,7 +90,7 @@ export const categories = [
   },
 ];
 
-export default function Categories() {
+const Categories = () => {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();
@@ -116,3 +116,5 @@ export default function Categories() {
     </div>
   );
 }
+
+export default Categories

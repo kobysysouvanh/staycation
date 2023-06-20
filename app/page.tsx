@@ -4,10 +4,10 @@ import ListingCard from "@/components/listings/ListingCard";
 import getCurrentUser from "./actions/getCurrentUser";
 
 interface HomeProps {
-  searchParams: IListingsParams
+  searchParams: IListingsParams;
 }
 
-const Home = async({ searchParams } : HomeProps) => {
+const Home = async ({ searchParams }: HomeProps) => {
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
@@ -32,6 +32,6 @@ const Home = async({ searchParams } : HomeProps) => {
       })}
     </div>
   );
-}
+};
 
-export default Home
+export default Home;

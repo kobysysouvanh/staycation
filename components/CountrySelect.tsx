@@ -20,7 +20,7 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
   const { getAll } = useCountries();
 
   return (
-    <div className="flex items-center justify-center w-full p-6">
+    <div className="flex items-center justify-center w-full">
       <Select
         className="w-full"
         classNames={{

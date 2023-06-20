@@ -13,11 +13,11 @@ import ImageUpload from "../ImageUpload";
 import { categories } from "../category/Categories";
 import CategoryInput from "../category/CategoryInput";
 
-type RentModalProps = {
+interface RentModalProps {
   isOpen: boolean;
   onClose: (value: string) => void;
   selectedValue: string;
-};
+}
 
 enum STEPS {
   CATEGORY = 0,
@@ -144,14 +144,6 @@ const RentModal: React.FC<RentModalProps> = ({
     return "Next";
   }, [step]);
 
-  const secondLabel = useMemo(() => {
-    if (step === STEPS.CATEGORY) {
-      return undefined;
-    }
-
-    return "Back";
-  }, [step]);
-
   const handleClose = () => {
     onClose(selectedValue);
   };
@@ -182,10 +174,10 @@ const RentModal: React.FC<RentModalProps> = ({
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col">
-        <div className="ml-6 mt-6 flex-auto">
+        <div className="p-6 flex-auto">
           <p className="font-semibold text-2xl">Where is this place located?</p>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center p-6">
           <CountrySelect
             value={location}
             onChange={(value) => setCustomValue("location", value)}
@@ -200,8 +192,8 @@ const RentModal: React.FC<RentModalProps> = ({
 
   if (step === STEPS.INFO) {
     bodyContent = (
-      <div className="flex flex-col gap-4">
-        <div className="ml-6 mt-6 flex-auto">
+      <div className="flex flex-col gap-4 p-6">
+        <div className="flex-auto py-4">
           <p className="font-semibold text-2xl">
             Share some basic information about your place
           </p>

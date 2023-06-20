@@ -1,18 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import React, { useCallback, useState } from "react";
-import Link from "next/link";
-import { BiSearch } from "react-icons/bi";
-import { AiOutlineMenu } from "react-icons/ai";
-import RegisterModal from "./modals/RegisterModal";
-import LoginModal from "./modals/LoginModal";
-import { signOut } from "next-auth/react";
+import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
+import { differenceInDays } from "date-fns";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useMemo, useState } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 import Categories from "./category/Categories";
-import { toast } from "react-hot-toast";
+import LoginModal from "./modals/LoginModal";
+import RegisterModal from "./modals/RegisterModal";
 import RentModal from "./modals/RentModal";
-import { useRouter } from "next/navigation";
+import SearchModal from "./modals/SearchModal";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -20,11 +22,58 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const router = useRouter();
+
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRentOpen, setIsRentOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(String);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [selectedValue, setSelectedValue] = useState(String);
+
+  const params = useSearchParams()
+  const { getByValue } = useCountries()
+
+  const locationValue = params?.get("locationValue")
+  const startDate = params?.get("startDate")
+  const endDate = params?.get("endDate")
+  const guestCount = params?.get("guestCount")
+
+  const locationLabel = useMemo(() => {
+    if (locationValue) {
+      return getByValue(locationValue as string)?.label
+    }
+
+    return "Anywhere"
+  }, [locationValue, getByValue])
+
+  const durationLabel = useMemo(() => {
+    if(startDate && endDate) {
+      const start = new Date(startDate as string)
+      const end = new Date(endDate as string)
+      let diff = differenceInDays(end, start)
+
+      if (diff === 0){
+        diff = 1
+      }
+
+      return `${diff} Days`
+    }
+
+    return "Any Week"
+
+  }, [startDate, endDate])
+
+  const guestLabel = useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} Guests`
+    }
+
+    return "Add Guests"
+  }, [guestCount])
+
+  const handleSearchOpen = () => {
+    setIsSearchOpen(true)
+  }
 
   const handleRentOpen = () => {
     setIsRentOpen(true);
@@ -42,6 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
     setIsRegisterOpen(false);
     setIsLoginOpen(false);
     setIsRentOpen(false);
+    setIsSearchOpen(false)
     setSelectedValue(value);
   };
 
@@ -71,14 +121,16 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
         </Link>
 
         {/* Search Bar */}
-        <div className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">
+        <div 
+        onClick={handleSearchOpen}
+        className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">
           <div className="flex flex-row items-center justify-between">
-            <div className="text-sm font-semibold px-4">Anywhere</div>
+            <div className="text-sm font-semibold px-4">{locationLabel}</div>
             <div className="hidden sm:block text-sm font-semibold px-4 border-x-[1px] flex-1 text-center">
-              Any week
+              {durationLabel}
             </div>
             <div className="text-sm pl-4 pr-2 text-gray-600 flex flex-row items-center gap-3">
-              <div className="hidden sm:block">Add guests</div>
+              <div className="hidden sm:block">{guestLabel}</div>
               <div className="p-2 bg-rose-500 rounded-full text-white">
                 <BiSearch size={18} />
               </div>
@@ -192,6 +244,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
       />
       <RentModal
         isOpen={isRentOpen}
+        onClose={handleClose}
+        selectedValue={selectedValue}
+      />
+      <SearchModal
+        isOpen={isSearchOpen}
         onClose={handleClose}
         selectedValue={selectedValue}
       />

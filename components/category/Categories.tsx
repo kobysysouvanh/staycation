@@ -5,8 +5,6 @@ import { categories } from "@/components/category/categoriesType";
 import CategoryItem from "./CategoryItem";
 import React from "react";
 
-
-
 const Categories = () => {
   const params = useSearchParams();
   const category = params?.get("category");

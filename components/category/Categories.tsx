@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { categories } from "./categoriesType"
+import { categories } from "@/components/category/categoriesType"
 import CategoryItem from "./CategoryItem";
 import React from "react";
 

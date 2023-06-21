@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -11,7 +11,11 @@ interface CategoryItemProps {
   selected?: boolean;
 }
 
-const CategoryItem: React.FC<CategoryItemProps> = ({ icon: Icon, label, selected }) => {
+const CategoryItem: React.FC<CategoryItemProps> = ({
+  icon: Icon,
+  label,
+  selected,
+}) => {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -50,6 +54,6 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ icon: Icon, label, selected
       <div className="font-medium text-xs">{label}</div>
     </div>
   );
-}
+};
 
-export default CategoryItem
+export default CategoryItem;

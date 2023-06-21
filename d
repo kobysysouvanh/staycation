@@ -1,0 +1,168 @@
+[33mcommit d2d4274300b618681ac14f3d929f14c87b5bf8dc[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 08:22:10 2023 -0400
+
+    moved components of category to a different folder
+
+[33mcommit 498547a4d13e3dce7001bba498ec35f0f5a41baf[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 08:11:45 2023 -0400
+
+    fixes
+
+[33mcommit b452070529c8ec2908e3d17761d3be7e61cfdf23[m
+Merge: f4b2f7f ae67d7c
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 08:07:55 2023 -0400
+
+    fixed deleted files
+
+[33mcommit f4b2f7fc521f909392da5814376389bae96fd85f[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 08:02:43 2023 -0400
+
+    change import directory
+
+[33mcommit ae67d7c920f8a317cb24b4c5d04ed13bd172e873[m
+Author: Koby Sysouvanh <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 07:58:32 2023 -0400
+
+    Delete components/Category directory
+
+[33mcommit b1df0c16c4ec2c246ea7fc810ce82b97b29f4b19[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 07:53:15 2023 -0400
+
+    ran git config core.ignorecase false
+
+[33mcommit 1f2b3406b0a44c3fec5033050f731a43673e5d73[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 21 07:49:08 2023 -0400
+
+    npm run build works
+
+[33mcommit 07e7f7ee96b5cb51cb05e462d29050bcaec2a01d[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 07:54:29 2023 -0400
+
+    fixed imports
+
+[33mcommit 30d24438a8c05ff3efc6d136931312367ffa90b4[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 07:44:47 2023 -0400
+
+    fixed errors
+
+[33mcommit b3f7ad7ccbd5e4b38a005e562dfc65822e0bf825[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 07:34:04 2023 -0400
+
+    fixed errors
+
+[33mcommit 9707d037a43e89ad740fcb57389ef2f29893edb6[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 07:23:01 2023 -0400
+
+    Finished Airbnb Clone!
+
+[33mcommit 1c48a5e0e5ddfa8ede4b40577c5c66a7f04ed9a2[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 07:20:01 2023 -0400
+
+    Finished Airbnb Clone!
+
+[33mcommit 7051dfafc9642f7858adee0d958dadcb69a2e374[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 05:01:08 2023 -0400
+
+    Created /properties page with ability to delete property
+
+[33mcommit 5edda7d5cd09b7324ae1a5fbf6e63071218ca271[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Tue Jun 20 04:26:29 2023 -0400
+
+    Created functionality for property owners to cancel reservations
+
+[33mcommit 6b6e581376f2ee7c1ecb8d4780a4b2c6e2b2f48d[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Mon Jun 19 04:13:02 2023 -0400
+
+    Added trips page to show current reservations
+
+[33mcommit 4d8d4bd2e8142b4df125e3b206c379d22e3d0383[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Sun Jun 18 09:13:09 2023 -0400
+
+    Fixed issue with page.tsx. Added more components to Listings Page
+
+[33mcommit 01ac5f1acc683d6f0cff39452048682c9b9175d0[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Sun Jun 18 04:30:08 2023 -0400
+
+    Need to fix error in page.tsx
+
+[33mcommit 861ded26bc9113b77d7e29364bfa3f0023ea2f53[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Sat Jun 17 14:01:33 2023 -0400
+
+    Finished lising showcase
+
+[33mcommit 17fd327d09d2c0395875c492fbc27e0416bec3ef[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Sat Jun 17 05:32:33 2023 -0400
+
+    Finished rent home function
+
+[33mcommit d8975018c6789b531779a59defc0a1f117095453[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Fri Jun 16 11:45:41 2023 -0400
+
+    Added Map to location functionality
+
+[33mcommit bd8ab21fbf610ae6ee52c9e887b7f6f8a5455192[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Fri Jun 16 06:39:44 2023 -0400
+
+    Working on Rent functionality
+
+[33mcommit 70aa6323d7fc9b6b8685687275fdd0815fa33fda[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Thu Jun 15 12:57:57 2023 -0400
+
+    Created Category for Navbar
+
+[33mcommit 504691ff7f0f64e194d4eef78cfc30d0c2bedbd2[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Thu Jun 15 10:09:33 2023 -0400
+
+    Added credentials and google signup/login
+
+[33mcommit cd35deb7ea8c7e6451015004bd52d3f6a3cd7a50[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Thu Jun 15 08:57:28 2023 -0400
+
+    Working on Login Functionality
+
+[33mcommit dbb3ff67bcac818370afb0fc8e5e0791f5b83f8c[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Thu Jun 15 05:38:55 2023 -0400
+
+    adding signup providers
+
+[33mcommit 4fca696ad2aef1ae11f6840c7ca2fe365518e285[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 14 09:03:55 2023 -0400
+
+    Added Toaster
+
+[33mcommit 91c63155ff160ba85b0171b19373f8526698902a[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Wed Jun 14 03:36:37 2023 -0400
+
+    Working on Dialog
+
+[33mcommit 2588042bd38cb16d674430e9e203ab8ebd2eca31[m
+Author: Koby <kobysysouvanh@gmail.com>
+Date:   Mon Jun 12 10:46:44 2023 -0400
+
+    Created Airbnb App

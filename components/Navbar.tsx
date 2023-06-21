@@ -10,7 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useMemo, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
-import Categories from "@/components/category/Categories";
+import Categories from "@/components/categories/Categories";
 import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import RentModal from "./modals/RentModal";

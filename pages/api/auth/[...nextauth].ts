@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook"

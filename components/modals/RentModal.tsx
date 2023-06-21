@@ -10,7 +10,7 @@ import { IoMdClose } from "react-icons/io";
 import Counter from "../Counter";
 import CountrySelect from "../CountrySelect";
 import ImageUpload from "../ImageUpload";
-import { categories } from "@/components/category/Categories";
+import { categories } from "../category/categoriesType";
 import CategoryInput from "@/components/category/CategoryInput";
 
 interface RentModalProps {

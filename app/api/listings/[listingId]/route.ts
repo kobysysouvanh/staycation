@@ -24,5 +24,5 @@ export async function DELETE(
     },
   });
 
-  return NextResponse.json(listing)
+  return NextResponse.json(listing);
 }

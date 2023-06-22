@@ -46,7 +46,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           <div>Hosted by {user?.name}</div>
           <div className="hidden md:block">
             <Image
-              src={user?.image as string}
+              src={user?.image || '/images/placeholder.jpg'}
               className="rounded-full"
               width={30}
               height={30}

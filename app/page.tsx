@@ -1,9 +1,11 @@
 export const dynamic = "force-dynamic";
 
+import React from "react";
 import EmptyState from "@/components/EmptyState";
 import getListings, { IListingsParams } from "./actions/getListings";
 import ListingCard from "@/components/listings/ListingCard";
 import getCurrentUser from "./actions/getCurrentUser";
+import { SafeListing } from "./types";
 
 interface HomeProps {
   searchParams: IListingsParams;
@@ -23,7 +25,7 @@ const Home = async ({ searchParams }: HomeProps) => {
 
   return (
     <div className="px-10 w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-      {listings.map((listing) => {
+      {listings.map((listing: SafeListing) => {
         return (
           <ListingCard
             currentUser={currentUser}

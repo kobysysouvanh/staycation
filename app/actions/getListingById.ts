@@ -4,7 +4,7 @@ interface IParams {
   listingId?: string;
 }
 
-export default async function getListingByIds(params: IParams) {
+export default async function getListingById(params: IParams) {
   try {
     const { listingId } = params;
 
@@ -23,10 +23,10 @@ export default async function getListingByIds(params: IParams) {
 
     return {
       ...listing,
-      createdAt: listing.createdAt.toISOString(),
+      createdAt: listing.createdAt.toString(),
       user: {
         ...listing.user,
-        createAt: listing.user.createdAt.toISOString(),
+        createdAt: listing.user.createdAt.toISOString(),
         updatedAt: listing.user.updatedAt.toISOString(),
         emailVerified: listing.user.emailVerified?.toISOString() || null,
       },

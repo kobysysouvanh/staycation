@@ -218,7 +218,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                       </div>
                     </div>
                     <div className="py-2">
-                      <div className="px-4 py-3 transition hover:bg-neutral-100">
+                      <div 
+                        onClick={handleLoginOpen}
+                        className="px-4 py-3 transition hover:bg-neutral-100"
+                        >
                         Airbnb your home
                       </div>
                       <div className="px-4 py-3 transition hover:bg-neutral-100">

@@ -8,8 +8,8 @@ import getCurrentUser from "./actions/getCurrentUser";
 const font = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Airbnb",
-  description: "Airbnb Clone",
+  title: "Staycation",
+  description: "Home rental platform for your next vacation",
 };
 
 export default async function RootLayout({
@@ -24,7 +24,7 @@ export default async function RootLayout({
       <body className={font.className}>
         <ToasterProvider/>
         <Navbar currentUser={currentUser}/>
-        <div className="pb-20 pt-64">
+        <div className="pt-64 pb-20">
           {children}
         </div>
       </body>

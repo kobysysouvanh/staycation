@@ -89,8 +89,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
         />
         <div className="flex items-center w-20 font-semibold">Register</div>
       </div>
-      <div className="relative p-6 flex-auto">
-        <p className="font-semibold text-2xl py-2">Welcome to Airbnb</p>
+      <div className="relative flex-auto p-6">
+        <p className="py-2 text-2xl font-semibold">Welcome to Staycation!</p>
         <div className="flex flex-col gap-4 mt-4">
           <ThemeProvider theme={customTheme(outerTheme)}>
             <TextField
@@ -123,38 +123,38 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
         </div>
       </div>
       <div className="flex flex-col gap-2 p-6">
-        <div className="flex flex-row items-center gap-4 w-full">
+        <div className="flex flex-row items-center w-full gap-4">
           <button
             onClick={handleSubmit(onSubmit)}
-            className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+            className="relative w-full py-4 text-white rounded-lg bg-gradient-to-r from-rose-500 to-rose-600"
             disabled={isLoading}
           >
             Sign Up
           </button>
         </div>
-        <div className="py-4 flex flex-row items-center text-center justify-center">
+        <div className="flex flex-row items-center justify-center py-4 text-center">
           <hr className="w-full" />
           <p className="px-2 text-xs">or</p>
           <hr className="w-full" />
         </div>
-        <div className="flex flex-row relative items-center justify-center cursor-pointer hover:bg-neutral-100">
+        <div className="relative flex flex-row items-center justify-center cursor-pointer hover:bg-neutral-100">
           <AiFillFacebook className="absolute left-6" color="blue" size={24} />
-          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+          <div className="relative w-full py-3 text-sm text-center text-black border border-black rounded-lg">
             Continue with Facebook
           </div>
         </div>
-        <div className="flex flex-row relative items-center justify-center my-2 cursor-pointer hover:bg-neutral-100">
+        <div className="relative flex flex-row items-center justify-center my-2 cursor-pointer hover:bg-neutral-100">
           <FcGoogle className="absolute left-6" size={24} />
           <div
             onClick={() => signIn("google")}
-            className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm"
+            className="relative w-full py-3 text-sm text-center text-black border border-black rounded-lg"
           >
             Continue with Google
           </div>
         </div>
-        <div className="flex flex-row relative items-center justify-center cursor-pointer hover:bg-neutral-100">
+        <div className="relative flex flex-row items-center justify-center cursor-pointer hover:bg-neutral-100">
           <AiFillApple className="absolute left-6" size={24} />
-          <div className="relative rounded-lg w-full border border-black text-black py-3 text-center text-sm">
+          <div className="relative w-full py-3 text-sm text-center text-black border border-black rounded-lg">
             Continue with Apple
           </div>
         </div>

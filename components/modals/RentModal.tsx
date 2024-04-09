@@ -150,8 +150,8 @@ const RentModal: React.FC<RentModalProps> = ({
 
   let bodyContent = (
     <div>
-      <div className="relative p-6 flex-auto">
-        <p className="font-semibold text-2xl py-2">
+      <div className="relative flex-auto p-6">
+        <p className="py-2 text-2xl font-semibold">
           Which of these best describes your place?
         </p>
         <p>Pick a category</p>
@@ -174,8 +174,8 @@ const RentModal: React.FC<RentModalProps> = ({
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col">
-        <div className="p-6 flex-auto">
-          <p className="font-semibold text-2xl">Where is this place located?</p>
+        <div className="flex-auto p-6">
+          <p className="text-2xl font-semibold">Where is this place located?</p>
         </div>
         <div className="flex items-center justify-center p-6">
           <CountrySelect
@@ -194,7 +194,7 @@ const RentModal: React.FC<RentModalProps> = ({
     bodyContent = (
       <div className="flex flex-col gap-4 p-6">
         <div className="flex-auto py-4">
-          <p className="font-semibold text-2xl">
+          <p className="text-2xl font-semibold">
             Share some basic information about your place
           </p>
           <p>Include guest, room, and bathroom count!</p>
@@ -230,8 +230,8 @@ const RentModal: React.FC<RentModalProps> = ({
   if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-4">
-        <div className="ml-6 mt-6 flex-auto">
-          <p className="font-semibold text-2xl">Add a photo of your place</p>
+        <div className="flex-auto mt-6 ml-6">
+          <p className="text-2xl font-semibold">Add a photo of your place</p>
           <p>Impress your guests!</p>
         </div>
         <div className="px-6 py-4">
@@ -247,11 +247,11 @@ const RentModal: React.FC<RentModalProps> = ({
   if (step === STEPS.DESCRIPTION) {
     bodyContent = (
       <div className="flex flex-col gap-4">
-        <div className="ml-6 mt-6 flex-auto">
-          <p className="font-semibold text-2xl">Describe the place</p>
+        <div className="flex-auto mt-6 ml-6">
+          <p className="text-2xl font-semibold">Describe the place</p>
           <p>Provide a short description!</p>
         </div>
-        <div className="py-4 px-6">
+        <div className="px-6 py-4">
           <ThemeProvider theme={customTheme(outerTheme)}>
             <TextField
               {...register("title", {
@@ -280,9 +280,9 @@ const RentModal: React.FC<RentModalProps> = ({
 
   if (step === STEPS.PRICE) {
     bodyContent = (
-      <div className="glex flex-col gap-4">
-        <div className="ml-6 mt-6 flex-auto">
-          <p className="font-semibold text-2xl">Finally, set your price</p>
+      <div className="flex-col gap-4 glex">
+        <div className="flex-auto mt-6 ml-6">
+          <p className="text-2xl font-semibold">Finally, set your price</p>
           <p>How much do you charge per night?</p>
         </div>
         <div className="px-6 py-6">
@@ -311,23 +311,23 @@ const RentModal: React.FC<RentModalProps> = ({
           size={18}
         />
         <div className="flex flex-row items-center font-semibold">
-          Airbnb your home!
+          Rent out your home!
         </div>
       </div>
       {bodyContent}
       <div className="flex flex-col gap-2 p-6">
-        <div className="flex flex-row items-center gap-4 w-full">
+        <div className="flex flex-row items-center w-full gap-4">
           {step !== STEPS.CATEGORY && (
             <button
               onClick={onBack}
-              className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+              className="relative w-full py-4 text-white rounded-lg bg-gradient-to-r from-rose-500 to-rose-600"
             >
               Back
             </button>
           )}
           <button
             onClick={handleSubmit(onSubmit)}
-            className="relative rounded-lg w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4"
+            className="relative w-full py-4 text-white rounded-lg bg-gradient-to-r from-rose-500 to-rose-600"
           >
             {buttonLabel}
           </button>

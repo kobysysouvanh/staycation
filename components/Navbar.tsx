@@ -107,16 +107,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   }, [currentUser]);
 
   return (
-    <div className="fixed w-full bg-white z-10">
+    <div className="fixed z-10 w-full bg-white">
       <div className="flex flex-row items-center justify-between gap-3 md:gap-0 max-w-[2520px] mx-auto px-4 sm:px-2 md:px-10 xl:px-20 border-b-[1px] py-4">
         <Link href="/">
-          <Image
-            src="/images/logo.png"
-            className="cursor-pointer hidden md:block"
-            width={100}
-            height={100}
-            alt="Airbnb"
-          />
+          <h1 className="text-3xl font-bold">Staycation!</h1>
         </Link>
 
         {/* Search Bar */}
@@ -125,13 +119,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
         >
           <div className="flex flex-row items-center justify-between">
-            <div className="text-sm font-semibold px-4">{locationLabel}</div>
+            <div className="px-4 text-sm font-semibold">{locationLabel}</div>
             <div className="hidden sm:block text-sm font-semibold px-4 border-x-[1px] flex-1 text-center">
               {durationLabel}
             </div>
-            <div className="text-sm pl-4 pr-2 text-gray-600 flex flex-row items-center gap-3">
+            <div className="flex flex-row items-center gap-3 pl-4 pr-2 text-sm text-gray-600">
               <div className="hidden sm:block">{guestLabel}</div>
-              <div className="p-2 bg-rose-500 rounded-full text-white">
+              <div className="p-2 text-white rounded-full bg-rose-500">
                 <BiSearch size={18} />
               </div>
             </div>
@@ -142,9 +136,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           <div className="flex flex-row items-center gap-1">
             <div
               onClick={onRent}
-              className="hidden md:block text-sm font-medium py-3 px-4 rounded-full hover:bg-neutral-100 cursor-pointer"
+              className="hidden px-4 py-3 text-sm font-medium rounded-full cursor-pointer md:block hover:bg-neutral-100"
             >
-              Airbnb your home
+              Rent out your home
             </div>
             <div
               onClick={handleMenuOpen}
@@ -222,7 +216,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                         onClick={handleLoginOpen}
                         className="px-4 py-3 transition hover:bg-neutral-100"
                         >
-                        Airbnb your home
+                        Rent out your home
                       </div>
                       <div className="px-4 py-3 transition hover:bg-neutral-100">
                         Help
